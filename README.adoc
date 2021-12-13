@@ -1,0 +1,99 @@
+= jQAssistant Groovy Plugin
+:author: Gerd Aschemann
+:email: gerd@aschemann.net
+
+:toc: left
+
+Plugin for https://jqassistant.org[jQAssistant] (jQA), a tool suite to analyze arbitrary software structures (Java and other source code, dependencies, Git repositories, and many more).
+Enables to run Groovy scripts on the Neo4j jQA repository, e.g., for extended reporting.
+
+Based on the great https://101.jqassistant.org/implementation-of-a-scanner-plugin/[101 Tutorial to write a jQAssistant Plugins], and some help from Dirk Mahler.
+
+== Getting started
+
+[WARNING]
+.Please note the 0.x version numbering and SNAPSHOTs
+====
+Please note, that the plugin versioning follows https://semver.org[Semantic Versioning] but starts with a 0.
+Hence, the API and features are not yet stable and may change with every minor version upgrade without prior notice.
+In particular, SNAPSHOT versions can be very unstable due to the very nature of branch based uploads to Maven repositories.
+====
+
+
+=== Build / Install
+
+First versions are available via
+
+[source, xml]
+include::pom.xml[tags=sonatype-url]
+
+as SNAPSHOT
+
+[source, xml]
+include::pom.xml[tags=sonatype-snapshot-repo]
+
+Additionally it is possible to clone and build it locally:
+
+* `git clone https://github.com/ascheman/jqa-groovy-plugin`
+* `(cd jqa-groovy-plugin && ./mvnw clean install)`
+
+=== Usage
+
+Use it in your jQA project as any other jQA plugin, e.g.,
+
+[source, xml]
+.pom.xml (part)
+----
+...
+        <plugins>
+            <plugin>
+                <groupId>com.buschmais.jqassistant</groupId>
+                <artifactId>jqassistant-maven-plugin</artifactId>
+                <version>1.10-SNAPSHOT</version>
+...
+                <dependencies>
+...
+                    <dependency>
+                        <groupId>net.aschemann.jqassistant.plugins</groupId>
+                        <artifactId>jqa-groovy-plugin</artifactId>
+include::pom.xml[tags=version, indent=24]
+                    </dependency>
+                </dependencies>
+            </plugin>
+...
+----
+
+It can run any https://groovy-lang.org[Groovy] script by calling it as part of a report, e.g.,
+
+[source, xml]
+.Include Groovy Report
+----
+include::src/test/resources/Groovy-Test.xml[]
+----
+
+with a script like
+
+[source, groovy]
+.Dummy Groovy Report
+----
+include::src/test/resources/groovy/createDummyFile.groovy[]
+----
+
+The following jQA properties are injected to the script (cf. <<src:groovy-bindings>>):
+
+`logger`:: The slf4j Logger used by the plugin
+`concept`:: The executed Concept
+`reportDirectory`:: The respective report directory
+`result`:: The Result of the Concept execution
+`store`:: The Neo4j handle
+
+[[src:groovy-bindings]]
+[source, java]
+.Groovy bindings of plugin properties
+----
+include::src/main/java/net/aschemann/jqassistant/plugin/groovy/GroovyReportPlugin.java[tags=groovy-lang-bindings]
+----
+
+== Examples
+
+Find a full example at https://github.com/ascheman/ansible-for-devops/tree/master/lamp-infrastructure.

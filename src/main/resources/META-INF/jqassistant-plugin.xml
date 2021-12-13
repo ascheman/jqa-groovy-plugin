@@ -1,0 +1,8 @@
+<jqassistant-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns="http://schema.jqassistant.org/plugin/v1.10"
+                    name="jQAssistant Groovy Plugin (by Gerd Aschemann)" id="jqa.plugin.groovy">
+    <description>Provides an analyzer to start project based groovy scripts.</description>
+    <report>
+        <class id="Groovy">net.aschemann.jqassistant.plugin.groovy.GroovyReportPlugin</class>
+    </report>
+</jqassistant-plugin>
