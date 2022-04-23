@@ -41,13 +41,13 @@
         <oss.sonatype.org.url>https://oss.sonatype.org</oss.sonatype.org.url>
         <!-- end::sonatype-url[] -->
 
-        <assertj-core.version>3.21.0</assertj-core.version>
+        <assertj-core.version>3.22.0</assertj-core.version>
         <jqa.version>1.11.1</jqa.version>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <groovy.version>3.0.9</groovy.version>
+        <groovy.version>3.0.10</groovy.version>
         <slf4j.version>1.7.36</slf4j.version>
         <slf4j-simple.version>1.7.36</slf4j-simple.version>
     </properties>
