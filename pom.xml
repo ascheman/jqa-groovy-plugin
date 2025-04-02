@@ -7,7 +7,7 @@
     <groupId>net.aschemann.jqassistant.plugins</groupId>
     <artifactId>jqa-groovy-plugin</artifactId>
     <!-- tag::version[] -->
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
     <!-- end::version[] -->
 
     <name>jQAssistant Groovy Plugin</name>
@@ -41,15 +41,15 @@
         <oss.sonatype.org.url>https://oss.sonatype.org</oss.sonatype.org.url>
         <!-- end::sonatype-url[] -->
 
-        <assertj-core.version>3.22.0</assertj-core.version>
-        <jqa.version>1.11.1</jqa.version>
-        <junit-jupiter.version>5.8.2</junit-jupiter.version>
-        <maven-dependency-plugin.version>3.2.0</maven-dependency-plugin.version>
-        <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-        <groovy.version>3.0.10</groovy.version>
-        <slf4j.version>1.7.36</slf4j.version>
-        <slf4j-simple.version>1.7.36</slf4j-simple.version>
+        <assertj-core.version>3.27.2</assertj-core.version>
+        <jqa.version>1.12.1</jqa.version>
+        <junit-jupiter.version>5.12.1</junit-jupiter.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
+        <maven-failsafe-plugin.version>3.5.3</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <groovy.version>3.0.24</groovy.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <slf4j-simple.version>2.0.17</slf4j-simple.version>
     </properties>
 
     <pluginRepositories>
@@ -142,6 +142,12 @@
         <dependency>
             <groupId>com.buschmais.jqassistant.core</groupId>
             <artifactId>report</artifactId>
+            <version>${jqa.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.buschmais.jqassistant.core</groupId>
+            <artifactId>store</artifactId>
             <version>${jqa.version}</version>
             <scope>provided</scope>
         </dependency>
