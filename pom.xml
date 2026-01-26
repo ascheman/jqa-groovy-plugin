@@ -41,7 +41,7 @@
         <oss.sonatype.org.url>https://oss.sonatype.org</oss.sonatype.org.url>
         <!-- end::sonatype-url[] -->
 
-        <assertj-core.version>3.27.2</assertj-core.version>
+        <assertj-core.version>3.27.7</assertj-core.version>
         <jqa.version>1.12.1</jqa.version>
         <junit-jupiter.version>5.12.1</junit-jupiter.version>
         <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
