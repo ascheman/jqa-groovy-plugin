@@ -1,4 +1,4 @@
-package net.aschemann.jqassistant.plugin.groovy;
+package net.aschemann.jqassistant.plugins.groovy;
 
 import com.buschmais.jqassistant.core.report.api.model.Result;
 import com.buschmais.jqassistant.core.rule.api.model.Concept;
@@ -49,6 +49,8 @@ public class GroovyReportPluginIT extends AbstractReportPluginTest {
 
     @Override
     protected <T extends ExecutableRule<?>> Result<T> getResult(T rule, Result.Status status) {
-        return Result.<T> builder().rule(rule).severity(rule.getSeverity()).status(status).columnNames(null).rows(null).build();
+        return Result.<T> builder().rule(rule).severity(rule.getSeverity()).status(status)
+//            .columnNames(null).rows(null)
+            .build();
     }
 }

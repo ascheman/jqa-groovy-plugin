@@ -1,0 +1,16 @@
+[[GroovyAnalyzer]]
+== Groovy based jQAssistant analyzer
+
+Reads in all
+
+=== Configuration
+
+.Configuration properties
+[options="header", cols="3"]
+|====
+| Property
+| Description
+| Default
+
+|====
+

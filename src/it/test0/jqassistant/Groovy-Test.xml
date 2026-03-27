@@ -1,0 +1,15 @@
+<jqassistant-rules xmlns="http://schema.jqassistant.org/rule/v2.2"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://schema.jqassistant.org/rule/v2.2 https://jqassistant.github.io/jqassistant/snapshot/schema/jqassistant-rule-v2.2.xsd">
+
+<concept id="groovy-test:SimpleGroovyTest">
+        <cypher><![CDATA[
+            MATCH (allNodes)
+            RETURN allNodes
+        ]]></cypher>
+        <report type="Groovy">
+            <property name="scriptname">jqassistant/groovy/tst.groovy</property>
+        </report>
+    </concept>
+
+</jqassistant-rules>
