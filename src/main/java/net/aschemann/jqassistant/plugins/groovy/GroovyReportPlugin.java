@@ -15,6 +15,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -110,8 +114,11 @@ public class GroovyReportPlugin implements ReportPlugin {
 
     /**
      * Executes a Groovy script with the given parameters.
+     * <p>
+     * The script is first looked up as a file on disk. If the file does not exist,
+     * it is loaded from the classpath (e.g., from a JAR).
      *
-     * @param scriptName the name of the script to execute
+     * @param scriptName the name/path of the script to execute
      * @param concept    the concept associated with the script
      * @param result     the result to be processed
      */
@@ -127,12 +134,26 @@ public class GroovyReportPlugin implements ReportPlugin {
         // end::groovy-lang-bindings[]
         GroovyShell groovyShell = new GroovyShell(binding);
         File script = new File(scriptName);
-        try {
-            groovyShell.evaluate(script);
-        } catch (IOException e) {
-            LOGGER.error("Error executing '{}': {}", script, e.getMessage());
+        if (script.exists()) {
+            LOGGER.debug("Loading script from file: {}", script.getAbsolutePath());
+            try {
+                groovyShell.evaluate(script);
+            } catch (IOException e) {
+                LOGGER.error("Error executing '{}': {}", script, e.getMessage());
+            }
+        } else {
+            LOGGER.debug("File '{}' not found on disk, trying classpath", scriptName);
+            InputStream is = getClass().getClassLoader().getResourceAsStream(scriptName);
+            if (is != null) {
+                try (Reader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+                    groovyShell.evaluate(reader);
+                } catch (IOException e) {
+                    LOGGER.error("Error executing classpath resource '{}': {}", scriptName, e.getMessage());
+                }
+            } else {
+                LOGGER.error("Script '{}' not found on disk or classpath", scriptName);
+            }
         }
-
     }
 
     /**
