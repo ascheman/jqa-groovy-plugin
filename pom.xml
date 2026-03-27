@@ -61,6 +61,7 @@
         <maven-failsafe-plugin.version>3.5.5</maven-failsafe-plugin.version>
         <maven-invoker-plugin.version>3.9.1</maven-invoker-plugin.version>
         <maven-surefire-plugin.version>3.5.5</maven-surefire-plugin.version>
+        <maven-versions-plugin.version>2.21.0</maven-versions-plugin.version>
         <groovy.version>5.0.4</groovy.version>
         <slf4j.version>2.0.17</slf4j.version>
         <slf4j-simple.version>2.0.17</slf4j-simple.version>
@@ -115,7 +116,7 @@
                         </goals>
                         <configuration>
                             <failOnWarning>true</failOnWarning>
-                            <ignoreNonCompile>true</ignoreNonCompile>
+                            <ignoreNonCompile>false</ignoreNonCompile>
                             <verbose>true</verbose>
                         </configuration>
                     </execution>
@@ -136,6 +137,16 @@
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${maven-versions-plugin.version}</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                    <!-- Exclude pre-release versions: alpha, beta, milestone, RC, dev, snapshot -->
+                    <ignoredVersions>(?i).*(alpha|beta|milestone|rc|m\d|\-dev|\-snapshot).*</ignoredVersions>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-invoker-plugin</artifactId>
@@ -186,11 +197,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.buschmais.jqassistant.plugin</groupId>
-            <artifactId>common</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.buschmais.jqassistant.core</groupId>
             <artifactId>report</artifactId>
         </dependency>
@@ -222,12 +228,6 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
