@@ -106,7 +106,7 @@ public class GroovyReportPlugin implements ReportPlugin {
                 if (key.toString().startsWith(REPORT_PROPERTY_SCRIPTNAME_PREFIX)) {
                     execute(value.toString(), concept, result);
                 } else {
-                    LOGGER.warn("Unknown Groovy report property '{}' = '{}'", key, value);
+                    LOGGER.debug("Additional report property '{}' = '{}' (passed through to script)", key, value);
                 }
             });
         });
