@@ -31,9 +31,8 @@ jobs:
         with:
           name: Test Results
           # This project has no unit tests: GroovyReportPluginIT runs under
-          # failsafe, so surefire-reports stays empty and a surefire-only glob
-          # makes the reporter fail even though the build passed.
-          path: |
-            target/surefire-reports/*.xml
-            target/failsafe-reports/TEST-*.xml
+          # failsafe, so target/surefire-reports stays empty. One single glob,
+          # because the reporter treats a multi-line value as one pattern and
+          # then matches nothing at all.
+          path: target/failsafe-reports/TEST-*.xml
           reporter: java-junit
