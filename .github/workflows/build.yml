@@ -30,5 +30,10 @@ jobs:
         if: always()
         with:
           name: Test Results
-          path: target/surefire-reports/*.xml
+          # This project has no unit tests: GroovyReportPluginIT runs under
+          # failsafe, so surefire-reports stays empty and a surefire-only glob
+          # makes the reporter fail even though the build passed.
+          path: |
+            target/surefire-reports/*.xml
+            target/failsafe-reports/TEST-*.xml
           reporter: java-junit
