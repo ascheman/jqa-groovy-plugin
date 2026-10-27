@@ -33,16 +33,20 @@ Releases are published to Maven Central and need no repository declaration:
 </dependency>
 ----
 
-SNAPSHOTs are published to GitHub Packages, which always requires authentication.
-Add the repository and a matching `server` entry with a personal access token holding the `read:packages` scope to your `~/.m2/settings.xml`:
+SNAPSHOTs are published to the Central Portal snapshot repository, which is readable without authentication.
+Add the repository to your `pom.xml` or `~/.m2/settings.xml` - no token and no `server` entry are needed:
 
 [source,xml]
 ----
 <repository>
-    <id>github</id>
-    <url>https://maven.pkg.github.com/ascheman/jqa-groovy-plugin</url>
+    <id>central-snapshots</id>
+    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+    <releases><enabled>false</enabled></releases>
+    <snapshots><enabled>true</enabled></snapshots>
 </repository>
 ----
+
+NOTE: Central keeps `-SNAPSHOT` artifacts for 90 days and performs no validation on them.
 
 Additionally it is possible to clone and build it locally:
 
