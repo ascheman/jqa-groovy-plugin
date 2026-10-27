@@ -1,4 +1,4 @@
-package net.aschemann.jqassistant.plugin.groovy;
+package net.aschemann.jqassistant.plugins.groovy;
 
 import com.buschmais.jqassistant.core.report.api.model.Result;
 import com.buschmais.jqassistant.core.rule.api.model.Concept;
@@ -47,8 +47,31 @@ public class GroovyReportPluginIT extends AbstractReportPluginTest {
         assertThat(reportFile).hasContent("Bin there, done nothing!");
     }
 
+    @Test
+    void testLoadScriptFromClasspath() throws RuleException {
+        Properties reportProperties = new Properties();
+        // Use classpath-relative path (no src/test/resources/ prefix)
+        reportProperties.setProperty("scriptname", "groovy/classpathTest.groovy");
+        Report groovyReport = Report.builder().properties(reportProperties).build();
+        Concept tst =
+            Concept.builder().id("groovy-integration-test:ClasspathScript").severity(Severity.MINOR).report(groovyReport).build();
+        Map<String, Object> properties = Collections.emptyMap();
+        plugin.configure(reportContext, properties);
+        plugin.begin();
+        apply(tst, SUCCESS);
+        plugin.end();
+
+        File groovyReportDirectory = reportContext.getReportDirectory("groovy-reports");
+        assertThat(groovyReportDirectory.exists()).isTrue();
+        File reportFile = new File(groovyReportDirectory, "classpath-test.txt");
+        assertThat(reportFile.exists()).isTrue();
+        assertThat(reportFile).hasContent("Loaded from classpath!");
+    }
+
     @Override
     protected <T extends ExecutableRule<?>> Result<T> getResult(T rule, Result.Status status) {
-        return Result.<T> builder().rule(rule).severity(rule.getSeverity()).status(status).columnNames(null).rows(null).build();
+        return Result.<T> builder().rule(rule).severity(rule.getSeverity()).status(status)
+//            .columnNames(null).rows(null)
+            .build();
     }
 }
