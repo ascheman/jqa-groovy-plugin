@@ -254,8 +254,13 @@
                 <snapshotRepository>
                     <id>github</id>
                     <name>GitHub Packages</name>
-                    <!--suppress UnresolvedMavenProperty -->
-                    <url>https://maven.pkg.github.com/${env.GITHUB_LOGIN}/${project.artifactId}</url>
+                    <!--
+                      Hardcoded owner on purpose: GITHUB_LOGIN is a local convention and
+                      is not set in GitHub Actions (which provides GITHUB_ACTOR), and
+                      GITHUB_ACTOR is whoever or whatever triggered the run - a bot for
+                      dependabot pushes. Either would resolve to the wrong repository.
+                    -->
+                    <url>https://maven.pkg.github.com/ascheman/${project.artifactId}</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
