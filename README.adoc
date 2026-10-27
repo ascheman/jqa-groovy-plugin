@@ -22,15 +22,27 @@ In particular, SNAPSHOT versions can be very unstable due to the very nature of 
 
 === Build / Install
 
-First versions are available via
+Releases are published to Maven Central and need no repository declaration:
 
-[source, xml]
-include::pom.xml[tags=sonatype-url]
+[source,xml]
+----
+<dependency>
+    <groupId>net.aschemann.jqassistant.plugins</groupId>
+    <artifactId>jqa-groovy-plugin</artifactId>
+    <version><!-- see the badge above --></version>
+</dependency>
+----
 
-as SNAPSHOT
+SNAPSHOTs are published to GitHub Packages, which always requires authentication.
+Add the repository and a matching `server` entry with a personal access token holding the `read:packages` scope to your `~/.m2/settings.xml`:
 
-[source, xml]
-include::pom.xml[tags=sonatype-snapshot-repo]
+[source,xml]
+----
+<repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/ascheman/jqa-groovy-plugin</url>
+</repository>
+----
 
 Additionally it is possible to clone and build it locally:
 
